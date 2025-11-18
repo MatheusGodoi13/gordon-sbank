@@ -1,0 +1,84 @@
+<section class="emprestimo-container">
+  <h2>Solicitar Empréstimo</h2>
+  
+  <form [formGroup]="emprestimoForm" (ngSubmit)="onSubmit()" class="emprestimo-form">
+    <div class="form-group">
+      <label for="numeroConta">Número da Conta *</label>
+      <input 
+        type="text" 
+        id="numeroConta" 
+        formControlName="numeroConta"
+        placeholder="Número da conta"
+        [class.error]="emprestimoForm.get('numeroConta')?.invalid && emprestimoForm.get('numeroConta')?.touched">
+      <small *ngIf="emprestimoForm.get('numeroConta')?.invalid && emprestimoForm.get('numeroConta')?.touched">
+        Número da conta é obrigatório
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="valor">Valor do Empréstimo *</label>
+      <input 
+        type="number" 
+        id="valor" 
+        formControlName="valor"
+        placeholder="0.00"
+        min="100"
+        step="0.01"
+        [class.error]="emprestimoForm.get('valor')?.invalid && emprestimoForm.get('valor')?.touched">
+      <small *ngIf="emprestimoForm.get('valor')?.invalid && emprestimoForm.get('valor')?.touched">
+        Valor mínimo: R$ 100,00
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="numeroParcelas">Número de Parcelas *</label>
+      <input 
+        type="number" 
+        id="numeroParcelas" 
+        formControlName="numeroParcelas"
+        placeholder="1 a 60"
+        min="1"
+        max="60"
+        [class.error]="emprestimoForm.get('numeroParcelas')?.invalid && emprestimoForm.get('numeroParcelas')?.touched">
+      <small *ngIf="emprestimoForm.get('numeroParcelas')?.invalid && emprestimoForm.get('numeroParcelas')?.touched">
+        Número de parcelas deve ser entre 1 e 60
+      </small>
+    </div>
+
+    <div *ngIf="valorParcela > 0" class="resumo-emprestimo">
+      <h3>Resumo do Empréstimo</h3>
+      <div class="resumo-item">
+        <strong>Valor da Parcela:</strong> R$ {{ valorParcela | number:'1.2-2' }}
+      </div>
+      <div class="resumo-item">
+        <strong>Taxa de Juros:</strong> 2% ao mês
+      </div>
+      <div class="resumo-item">
+        <strong>Total a Pagar:</strong> R$ {{ (valorParcela * emprestimoForm.get('numeroParcelas')?.value) | number:'1.2-2' }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="descricao">Descrição (opcional)</label>
+      <textarea 
+        id="descricao" 
+        formControlName="descricao"
+        placeholder="Descrição do empréstimo"
+        rows="3"></textarea>
+    </div>
+
+    <div *ngIf="mensagemSucesso" class="mensagem sucesso">
+      {{ mensagemSucesso }}
+    </div>
+
+    <div *ngIf="mensagemErro" class="mensagem erro">
+      {{ mensagemErro }}
+    </div>
+
+    <button type="submit" [disabled]="carregando || emprestimoForm.invalid" class="btn-primary">
+      <span *ngIf="carregando">Processando...</span>
+      <span *ngIf="!carregando">Solicitar Empréstimo</span>
+    </button>
+  </form>
+</section>
+

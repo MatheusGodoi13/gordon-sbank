@@ -1,0 +1,114 @@
+<section class="criar-conta-container">
+  <h2>Criar Nova Conta</h2>
+  
+  <form [formGroup]="contaForm" (ngSubmit)="onSubmit()" class="conta-form">
+    <div class="form-group">
+      <label for="numeroConta">Número da Conta *</label>
+      <input 
+        type="text" 
+        id="numeroConta" 
+        formControlName="numeroConta"
+        placeholder="Ex: 123456"
+        [class.error]="contaForm.get('numeroConta')?.invalid && contaForm.get('numeroConta')?.touched">
+      <small *ngIf="contaForm.get('numeroConta')?.invalid && contaForm.get('numeroConta')?.touched">
+        Número da conta deve ter pelo menos 6 dígitos
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="agencia">Agência *</label>
+      <input 
+        type="text" 
+        id="agencia" 
+        formControlName="agencia"
+        placeholder="Ex: 0001"
+        [class.error]="contaForm.get('agencia')?.invalid && contaForm.get('agencia')?.touched">
+      <small *ngIf="contaForm.get('agencia')?.invalid && contaForm.get('agencia')?.touched">
+        Agência deve ter pelo menos 4 dígitos
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="tipoConta">Tipo de Conta *</label>
+      <select id="tipoConta" formControlName="tipoConta">
+        <option value="CORRENTE">Conta Corrente</option>
+        <option value="POUPANCA">Conta Poupança</option>
+        <option value="SALARIO">Conta Salário</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="titular">Nome do Titular *</label>
+      <input 
+        type="text" 
+        id="titular" 
+        formControlName="titular"
+        placeholder="Nome completo"
+        [class.error]="contaForm.get('titular')?.invalid && contaForm.get('titular')?.touched">
+      <small *ngIf="contaForm.get('titular')?.invalid && contaForm.get('titular')?.touched">
+        Nome deve ter pelo menos 3 caracteres
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="cpf">CPF *</label>
+      <input 
+        type="text" 
+        id="cpf" 
+        formControlName="cpf"
+        placeholder="Apenas números (11 dígitos)"
+        maxlength="11"
+        [class.error]="contaForm.get('cpf')?.invalid && contaForm.get('cpf')?.touched">
+      <small *ngIf="contaForm.get('cpf')?.invalid && contaForm.get('cpf')?.touched">
+        CPF deve conter exatamente 11 dígitos
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="email">E-mail *</label>
+      <input 
+        type="email" 
+        id="email" 
+        formControlName="email"
+        placeholder="exemplo@email.com"
+        [class.error]="contaForm.get('email')?.invalid && contaForm.get('email')?.touched">
+      <small *ngIf="contaForm.get('email')?.invalid && contaForm.get('email')?.touched">
+        E-mail inválido
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="telefone">Telefone</label>
+      <input 
+        type="text" 
+        id="telefone" 
+        formControlName="telefone"
+        placeholder="(00) 00000-0000">
+    </div>
+
+    <div class="form-group">
+      <label for="saldoInicial">Saldo Inicial</label>
+      <input 
+        type="number" 
+        id="saldoInicial" 
+        formControlName="saldoInicial"
+        min="0"
+        step="0.01"
+        placeholder="0.00">
+    </div>
+
+    <div *ngIf="mensagemSucesso" class="mensagem sucesso">
+      {{ mensagemSucesso }}
+    </div>
+
+    <div *ngIf="mensagemErro" class="mensagem erro">
+      {{ mensagemErro }}
+    </div>
+
+    <button type="submit" [disabled]="carregando || contaForm.invalid" class="btn-primary">
+      <span *ngIf="carregando">Criando...</span>
+      <span *ngIf="!carregando">Criar Conta</span>
+    </button>
+  </form>
+</section>
+

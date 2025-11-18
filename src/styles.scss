@@ -1,0 +1,28 @@
+/* estilos globais */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Variáveis de cores */
+:root {
+  --verde-escuro: #1b5e20;
+  --verde-medio: #2e7d32;
+  --verde-claro: #66bb6a;
+  --verde-muito-claro: #a5d6a7;
+  --verde-fundo: #e8f5e9;
+  --amarelo: #ffd700;
+  --amarelo-claro: #ffed4e;
+  --amarelo-escuro: #ffc107;
+}

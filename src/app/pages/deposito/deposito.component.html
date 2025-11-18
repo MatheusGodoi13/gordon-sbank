@@ -1,0 +1,56 @@
+<section class="deposito-container">
+  <h2>Realizar Depósito</h2>
+  
+  <form [formGroup]="depositoForm" (ngSubmit)="onSubmit()" class="deposito-form">
+    <div class="form-group">
+      <label for="numeroConta">Número da Conta *</label>
+      <input 
+        type="text" 
+        id="numeroConta" 
+        formControlName="numeroConta"
+        placeholder="Número da conta"
+        [class.error]="depositoForm.get('numeroConta')?.invalid && depositoForm.get('numeroConta')?.touched">
+      <small *ngIf="depositoForm.get('numeroConta')?.invalid && depositoForm.get('numeroConta')?.touched">
+        Número da conta é obrigatório
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="valor">Valor *</label>
+      <input 
+        type="number" 
+        id="valor" 
+        formControlName="valor"
+        placeholder="0.00"
+        min="0.01"
+        step="0.01"
+        [class.error]="depositoForm.get('valor')?.invalid && depositoForm.get('valor')?.touched">
+      <small *ngIf="depositoForm.get('valor')?.invalid && depositoForm.get('valor')?.touched">
+        Valor deve ser maior que zero
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="descricao">Descrição (opcional)</label>
+      <textarea 
+        id="descricao" 
+        formControlName="descricao"
+        placeholder="Descrição do depósito"
+        rows="3"></textarea>
+    </div>
+
+    <div *ngIf="mensagemSucesso" class="mensagem sucesso">
+      {{ mensagemSucesso }}
+    </div>
+
+    <div *ngIf="mensagemErro" class="mensagem erro">
+      {{ mensagemErro }}
+    </div>
+
+    <button type="submit" [disabled]="carregando || depositoForm.invalid" class="btn-primary">
+      <span *ngIf="carregando">Processando...</span>
+      <span *ngIf="!carregando">Realizar Depósito</span>
+    </button>
+  </form>
+</section>
+

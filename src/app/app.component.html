@@ -1,0 +1,17 @@
+<header class="app-header">
+  <div class="header-content">
+    <h1>{{ title }}</h1>
+    <nav class="main-nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+      <a routerLink="/criar-conta" routerLinkActive="active">Criar Conta</a>
+      <a routerLink="/excluir-conta" routerLinkActive="active">Excluir Conta</a>
+      <a routerLink="/transferencia" routerLinkActive="active">Transferência</a>
+      <a routerLink="/deposito" routerLinkActive="active">Depósito</a>
+      <a routerLink="/emprestimo" routerLinkActive="active">Empréstimo</a>
+    </nav>
+  </div>
+</header>
+<main class="app-main">
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,68 @@
+<section class="excluir-conta-container">
+  <h2>Excluir Conta</h2>
+  
+  <form [formGroup]="excluirForm" (ngSubmit)="buscarConta()" class="excluir-form">
+    <div class="form-group">
+      <label for="numeroConta">Número da Conta *</label>
+      <div class="input-group">
+        <input 
+          type="text" 
+          id="numeroConta" 
+          formControlName="numeroConta"
+          placeholder="Digite o número da conta"
+          [class.error]="excluirForm.get('numeroConta')?.invalid && excluirForm.get('numeroConta')?.touched">
+        <button type="submit" [disabled]="buscando || excluirForm.invalid" class="btn-secondary">
+          <span *ngIf="buscando">Buscando...</span>
+          <span *ngIf="!buscando">Buscar</span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div *ngIf="contaEncontrada" class="conta-info">
+    <h3>Dados da Conta</h3>
+    <div class="info-grid">
+      <div class="info-item">
+        <strong>Número:</strong> {{ contaEncontrada.numeroConta }}
+      </div>
+      <div class="info-item">
+        <strong>Agência:</strong> {{ contaEncontrada.agencia }}
+      </div>
+      <div class="info-item">
+        <strong>Tipo:</strong> {{ contaEncontrada.tipoConta }}
+      </div>
+      <div class="info-item">
+        <strong>Titular:</strong> {{ contaEncontrada.titular }}
+      </div>
+      <div class="info-item">
+        <strong>CPF:</strong> {{ contaEncontrada.cpf }}
+      </div>
+      <div class="info-item">
+        <strong>Saldo:</strong> R$ {{ contaEncontrada.saldo | number:'1.2-2' }}
+      </div>
+    </div>
+
+    <div class="aviso-exclusao">
+      <p><strong>⚠️ Atenção:</strong> Esta ação não pode ser desfeita. Tem certeza que deseja excluir esta conta?</p>
+    </div>
+
+    <div class="botoes-acao">
+      <button (click)="confirmarExclusao()" [disabled]="carregando" class="btn-danger">
+        <span *ngIf="carregando">Excluindo...</span>
+        <span *ngIf="!carregando">Confirmar Exclusão</span>
+      </button>
+      <button (click)="cancelar()" [disabled]="carregando" class="btn-secondary">
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="mensagemSucesso" class="mensagem sucesso">
+    {{ mensagemSucesso }}
+  </div>
+
+  <div *ngIf="mensagemErro" class="mensagem erro">
+    {{ mensagemErro }}
+  </div>
+</section>
+
