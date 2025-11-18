@@ -6,7 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
 import { CriarContaComponent } from './pages/criar-conta/criar-conta.component';
 import { ExcluirContaComponent } from './pages/excluir-conta/excluir-conta.component';
 import { TransferenciaComponent } from './pages/transferencia/transferencia.component';
@@ -15,7 +14,6 @@ import { EmprestimoComponent } from './pages/emprestimo/emprestimo.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
   { path: 'criar-conta', component: CriarContaComponent },
   { path: 'excluir-conta', component: ExcluirContaComponent },
   { path: 'transferencia', component: TransferenciaComponent },
@@ -27,7 +25,6 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent,
     CriarContaComponent,
     ExcluirContaComponent,
     TransferenciaComponent,

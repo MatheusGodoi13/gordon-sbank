@@ -98,10 +98,7 @@
     </div>
 
     <div *ngIf="mensagemSucesso" class="mensagem sucesso">
-      <p>{{ mensagemSucesso }}</p>
-      <p style="margin-top: 0.5rem; font-size: 0.95rem;">
-        Agora você pode <a routerLink="/login" style="color: #1b5e20; font-weight: 700; text-decoration: underline;">fazer login</a> com seu email.
-      </p>
+      {{ mensagemSucesso }}
     </div>
 
     <div *ngIf="mensagemErro" class="mensagem erro">
@@ -113,9 +110,5 @@
       <span *ngIf="!carregando">Criar Conta</span>
     </button>
   </form>
-  
-  <div class="login-link">
-    <p>Já tem uma conta? <a routerLink="/login">Faça login aqui</a></p>
-  </div>
 </section>
 
