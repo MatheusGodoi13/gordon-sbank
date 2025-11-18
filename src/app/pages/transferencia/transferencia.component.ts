@@ -40,7 +40,21 @@ export class TransferenciaComponent {
       this.mensagemErro = '';
       this.mensagemSucesso = '';
 
-      const transferenciaRequest: TransferenciaRequest = this.transferenciaForm.value;
+      // Garantir que o valor seja um número
+      const valor = parseFloat(this.transferenciaForm.get('valor')?.value);
+      
+      if (isNaN(valor) || valor <= 0) {
+        this.mensagemErro = 'Valor inválido. Por favor, insira um valor numérico maior que zero.';
+        this.carregando = false;
+        return;
+      }
+
+      const transferenciaRequest: TransferenciaRequest = {
+        contaOrigem: this.transferenciaForm.get('contaOrigem')?.value?.trim(),
+        contaDestino: this.transferenciaForm.get('contaDestino')?.value?.trim(),
+        valor: valor,
+        descricao: this.transferenciaForm.get('descricao')?.value?.trim() || undefined
+      };
 
       this.transferenciaService.realizarTransferencia(transferenciaRequest).subscribe({
         next: (transferencia) => {
@@ -49,7 +63,12 @@ export class TransferenciaComponent {
           this.carregando = false;
         },
         error: (erro) => {
-          this.mensagemErro = erro.error?.message || 'Erro ao realizar transferência. Verifique os dados e tente novamente.';
+          console.error('Erro na transferência:', erro);
+          if (erro.error) {
+            this.mensagemErro = erro.error.message || erro.error.error || JSON.stringify(erro.error);
+          } else {
+            this.mensagemErro = 'Erro ao realizar transferência. Verifique os dados e tente novamente.';
+          }
           this.carregando = false;
         }
       });
