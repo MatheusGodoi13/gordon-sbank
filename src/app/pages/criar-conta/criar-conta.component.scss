@@ -115,3 +115,29 @@ small {
   }
 }
 
+.login-link {
+  margin-top: 1.5rem;
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 2px solid #a5d6a7;
+
+  p {
+    color: #1b5e20;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  a {
+    color: #2e7d32;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+      color: #ffd700;
+      border-bottom-color: #ffd700;
+    }
+  }
+}
+
