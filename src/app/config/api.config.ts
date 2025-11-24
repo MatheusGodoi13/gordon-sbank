@@ -3,7 +3,7 @@
  * Altere aqui se precisar mudar a URL base do backend
  */
 export const API_CONFIG = {
-  baseUrl: 'http://localhost:8080/api',
+  baseUrl: 'http://server.host.jaooo.tk:25568/api',
   endpoints: {
     contas: '/contas',
     transferencias: '/transferencias',
