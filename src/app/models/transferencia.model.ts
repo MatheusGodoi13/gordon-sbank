@@ -8,8 +8,8 @@ export interface Transferencia {
 }
 
 export interface TransferenciaRequest {
-  contaOrigem: string;
-  contaDestino: string;
+  contaOrigemNumero: string;
+  contaDestinoNumero: string;
   valor: number;
   descricao?: string;
 }

@@ -50,13 +50,22 @@ export class TransferenciaComponent {
       }
 
       const transferenciaRequest: TransferenciaRequest = {
-        contaOrigem: this.transferenciaForm.get('contaOrigem')?.value?.trim(),
-        contaDestino: this.transferenciaForm.get('contaDestino')?.value?.trim(),
+        contaOrigemNumero: this.transferenciaForm.get('contaOrigem')?.value?.trim(),
+        contaDestinoNumero: this.transferenciaForm.get('contaDestino')?.value?.trim(),
         valor: valor,
         descricao: this.transferenciaForm.get('descricao')?.value?.trim() || undefined
       };
+      
+      // Remover qualquer campo booleano que possa estar sendo enviado incorretamente
+      const payload: any = { ...transferenciaRequest };
+      delete payload.ativa;
+      delete payload.desativada;
+      delete payload.active;
+      delete payload.inactive;
+      delete payload.enabled;
+      delete payload.disabled;
 
-      this.transferenciaService.realizarTransferencia(transferenciaRequest).subscribe({
+      this.transferenciaService.realizarTransferencia(payload).subscribe({
         next: (transferencia) => {
           this.mensagemSucesso = `Transferência de R$ ${transferencia.valor.toFixed(2)} realizada com sucesso!`;
           this.transferenciaForm.reset();

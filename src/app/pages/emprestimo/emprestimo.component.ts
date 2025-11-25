@@ -67,14 +67,27 @@ export class EmprestimoComponent {
         return;
       }
 
+      // Taxa de juros de 2% ao mês (0.02)
+      const taxaJuros = 0.02;
+
       const emprestimoRequest: EmprestimoRequest = {
         numeroConta: formValue.numeroConta?.trim(),
         valor: valor,
         numeroParcelas: numeroParcelas,
+        taxaJuros: taxaJuros,
         descricao: formValue.descricao?.trim() || undefined
       };
+      
+      // Remover qualquer campo booleano que possa estar sendo enviado incorretamente
+      const payload: any = { ...emprestimoRequest };
+      delete payload.ativa;
+      delete payload.desativada;
+      delete payload.active;
+      delete payload.inactive;
+      delete payload.enabled;
+      delete payload.disabled;
 
-      this.emprestimoService.solicitarEmprestimo(emprestimoRequest).subscribe({
+      this.emprestimoService.solicitarEmprestimo(payload).subscribe({
         next: (emprestimo) => {
           this.mensagemSucesso = `Empréstimo de R$ ${emprestimo.valor.toFixed(2)} aprovado! ${emprestimo.numeroParcelas} parcelas de R$ ${emprestimo.valorParcela.toFixed(2)}`;
           this.emprestimoForm.reset();

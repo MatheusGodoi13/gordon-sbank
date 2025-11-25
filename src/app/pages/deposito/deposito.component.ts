@@ -45,8 +45,17 @@ export class DepositoComponent {
         valor: valor,
         descricao: formValue.descricao?.trim() || undefined
       };
+      
+      // Remover qualquer campo booleano que possa estar sendo enviado incorretamente
+      const payload: any = { ...depositoRequest };
+      delete payload.ativa;
+      delete payload.desativada;
+      delete payload.active;
+      delete payload.inactive;
+      delete payload.enabled;
+      delete payload.disabled;
 
-      this.depositoService.realizarDeposito(depositoRequest).subscribe({
+      this.depositoService.realizarDeposito(payload).subscribe({
         next: (deposito) => {
           this.mensagemSucesso = `Depósito de R$ ${deposito.valor.toFixed(2)} realizado com sucesso na conta ${deposito.numeroConta}!`;
           this.depositoForm.reset();

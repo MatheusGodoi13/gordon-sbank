@@ -13,6 +13,7 @@ export interface EmprestimoRequest {
   numeroConta: string;
   valor: number;
   numeroParcelas: number;
+  taxaJuros: number;
   descricao?: string;
 }
 
