@@ -47,8 +47,18 @@ export class CriarContaComponent {
         telefone: formValue.telefone?.trim() || undefined,
         saldoInicial: formValue.saldoInicial ? parseFloat(formValue.saldoInicial) : undefined
       };
+      
+      // Remover qualquer campo booleano que possa estar sendo enviado incorretamente
+      // Garantir que não enviamos campos de status ativa/desativada
+      const payload: any = { ...contaRequest };
+      delete payload.ativa;
+      delete payload.desativada;
+      delete payload.active;
+      delete payload.inactive;
+      delete payload.enabled;
+      delete payload.disabled;
 
-      this.contaService.criarConta(contaRequest).subscribe({
+      this.contaService.criarConta(payload).subscribe({
         next: (conta) => {
           this.mensagemSucesso = `Conta criada com sucesso! Número: ${conta.numeroConta}`;
           this.contaForm.reset({
