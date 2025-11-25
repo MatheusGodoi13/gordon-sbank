@@ -51,7 +51,28 @@ export class EmprestimoComponent {
       this.mensagemErro = '';
       this.mensagemSucesso = '';
 
-      const emprestimoRequest: EmprestimoRequest = this.emprestimoForm.value;
+      const formValue = this.emprestimoForm.value;
+      const valor = parseFloat(formValue.valor);
+      const numeroParcelas = parseInt(formValue.numeroParcelas);
+      
+      if (isNaN(valor) || valor <= 0) {
+        this.mensagemErro = 'Valor inválido. Por favor, insira um valor numérico maior que zero.';
+        this.carregando = false;
+        return;
+      }
+      
+      if (isNaN(numeroParcelas) || numeroParcelas <= 0) {
+        this.mensagemErro = 'Número de parcelas inválido.';
+        this.carregando = false;
+        return;
+      }
+
+      const emprestimoRequest: EmprestimoRequest = {
+        numeroConta: formValue.numeroConta?.trim(),
+        valor: valor,
+        numeroParcelas: numeroParcelas,
+        descricao: formValue.descricao?.trim() || undefined
+      };
 
       this.emprestimoService.solicitarEmprestimo(emprestimoRequest).subscribe({
         next: (emprestimo) => {

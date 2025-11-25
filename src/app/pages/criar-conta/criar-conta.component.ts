@@ -36,7 +36,17 @@ export class CriarContaComponent {
       this.mensagemErro = '';
       this.mensagemSucesso = '';
 
-      const contaRequest: CriarContaRequest = this.contaForm.value;
+      const formValue = this.contaForm.value;
+      const contaRequest: CriarContaRequest = {
+        numeroConta: formValue.numeroConta?.trim(),
+        agencia: formValue.agencia?.trim(),
+        tipoConta: formValue.tipoConta,
+        titular: formValue.titular?.trim(),
+        cpf: formValue.cpf?.trim(),
+        email: formValue.email?.trim(),
+        telefone: formValue.telefone?.trim() || undefined,
+        saldoInicial: formValue.saldoInicial ? parseFloat(formValue.saldoInicial) : undefined
+      };
 
       this.contaService.criarConta(contaRequest).subscribe({
         next: (conta) => {

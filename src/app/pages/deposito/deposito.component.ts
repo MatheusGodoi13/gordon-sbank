@@ -31,7 +31,20 @@ export class DepositoComponent {
       this.mensagemErro = '';
       this.mensagemSucesso = '';
 
-      const depositoRequest: DepositoRequest = this.depositoForm.value;
+      const formValue = this.depositoForm.value;
+      const valor = parseFloat(formValue.valor);
+      
+      if (isNaN(valor) || valor <= 0) {
+        this.mensagemErro = 'Valor inválido. Por favor, insira um valor numérico maior que zero.';
+        this.carregando = false;
+        return;
+      }
+
+      const depositoRequest: DepositoRequest = {
+        numeroConta: formValue.numeroConta?.trim(),
+        valor: valor,
+        descricao: formValue.descricao?.trim() || undefined
+      };
 
       this.depositoService.realizarDeposito(depositoRequest).subscribe({
         next: (deposito) => {
